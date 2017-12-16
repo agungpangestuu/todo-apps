@@ -1,9 +1,14 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const Controller = require('../controllers/userTask')
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+/* GE`T users listing. */
+router.get('/get-all-task', Controller.getAll)
+
+router.post('/create-task', Controller.createTask)
+
+router.put('/edit-task/:idTask', Controller.updateTask)
+
+router.delete('/delete-task/:idTask', Controller.deleteTask)
 
 module.exports = router;
