@@ -11,6 +11,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use('/', require('./routes/signin'))
 app.use('/api', require('./routes/users'));
 
 // catch 404 and forward to error handler
