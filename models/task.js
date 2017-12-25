@@ -1,4 +1,4 @@
-const mongoose = require('mongoose').connect('mongodb://localhost/todoapps', { useMongoClient: true })
+const mongoose = require('mongoose')
 const Schema = mongoose.Schema,
       ObjectId = Schema.ObjectId;
 
