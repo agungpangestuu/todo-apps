@@ -1,10 +1,14 @@
 const mongoose = require('mongoose').connect('mongodb://localhost/todoapps', { useMongoClient: true })
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema,
+      ObjectId = Schema.ObjectId;
 
 const Tasks = new Schema({
     task   : String,
     description : {type : String, default : '' },
-    status : {type : Boolean, default: false}
+    status : {type : Boolean, default : false },
+    createdAt : {type : Date },
+    UpdatedAt : {type : Date },
+    userId : { type : ObjectId, ref : 'userTask'}
 });
 
 const Task = mongoose.model("Task",Tasks);
