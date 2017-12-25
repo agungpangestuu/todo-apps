@@ -1,5 +1,5 @@
-const bcrypt = require('bcrypt');
-const mongoose = require('mongoose').connect('mongodb://localhost/todoapps');
+const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose')
 const Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId;
 
