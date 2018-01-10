@@ -20,12 +20,12 @@ module.exports = {
     req.header.tokenFb = req.body.authResponse.accessToken
     fb.setAccessToken(req.body.authResponse.accessToken);
     fb.api(req.body.authResponse.userID,{fields:["id","name","email","picture"]},(response)=>{
-      console.log(response)
+      console.log('ini response',response)
       if(!response || response.error){
         res.send({status:false});
       } else {
         User.count({email:response.email}).then((result)=>{
-          console.log(result);
+          console.log('ini result',result);
           if(result === 0){
             const user = new User({
                 fb_id:response.id,
@@ -33,7 +33,8 @@ module.exports = {
                 name:response.name,
                 profile:response.picture.data.url
             })
-            .save((err,stats)=>{
+            user.save((err,stats)=>{
+	      console.log('ini stats',stats)
               const loginToken = jwt.sign({id:stats._id},jwtSecret);
               res.send({status:true, token:loginToken, id: stats._id, name: stats.name, picture: stats.profile});
             });

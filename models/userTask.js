@@ -1,18 +1,17 @@
-const bcrypt = require('bcryptjs');
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId;
+const mongoose = require("mongoose")
+const Schema = mongoose.Schema;
 
-const userTasks = new Schema({
-    username    : {type : String, unique : true},
-    password    : {type : String, required : true},
-    role        : {type : String, default : "User"}
-
+const userSchema = new Schema({
+  fb_id     : Number,
+  email     : String,
+  name      : String,
+  profile   : String,
+  createdAt : {
+      type  : Date,
+      default : new Date()
+  }
 });
 
-userTasks.pre('save', function(next) {
-  this.password = bcrypt.hashSync(this.password, 10)
-  next()
-});
+const User = mongoose.model("User",userSchema);
 
-module.exports = mongoose.model('userTask', userTasks);;
+module.exports = User;
