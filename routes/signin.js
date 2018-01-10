@@ -8,7 +8,7 @@ router.get('/users', auth.CheckLogin, auth.authoriztion, SignController.getAllUs
 
 router.post('/signup', SignController.create)
 
-router.post('/signin', SignController.signin)
+router.post('/signin', SignController.login)
 
 router.put('/update/:idUser', auth.CheckLogin, SignController.updateUser)
 
