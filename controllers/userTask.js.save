@@ -1,22 +1,20 @@
-
 const Task = require('../models/task')
 const ObjectId=require('mongodb').ObjectID;
 const mongoose = require('mongoose')
 
 module.exports = {
     createTask (req,res){
-	console.log(req.isLogin)   
-     const task = new Task ({
+        const task = new Task ({
             task : req.body.task,
             description : req.body.description,
             createdAt : new Date(),
             updateAt : new Date(),
-            userId : req.isLogin.id
+            userId : req.isLogin.userId
         })
         .save((err, response) => {
             if(!err){
-		console.log(response)
-                res.status(200).json({
+                
+res.status(200).json({
                     message : "sukses to create task",
                     data : response
                 })
@@ -63,7 +61,7 @@ module.exports = {
       console.log(req.params.idTask);
         Task.findOne({"_id" : req.params.idTask})
         .then(result =>{
-            if (req.isLogin.id == result.userId) {
+            if (req.isLogin == result.userId) {
                 result.task = req.body.task
                 result.description = req.body.description
                 result.UpdatedAt = new Date()
@@ -97,7 +95,7 @@ module.exports = {
     deleteTask (req,res){
       Task.findOne({"_id" : req.params.idTask})
       .then(result => {
-          if (req.isLogin.id == result.userId) {
+          if (req.isLogin == result.userId) {
             Task.deleteOne({"_id" : req.params.idTask})
             .then(() => {
               res.status(200).json({
@@ -112,17 +110,16 @@ module.exports = {
     markTask(req,res){
         Task.findOne({"_id" : req.params.idTask})
         .then(result => {
-            if (req.isLogin.id == result.userId) {
+            if (req.isLogin == result.userId) {
               Task.updateOne({"_id" : req.params.idTask},
-              { $set : {status : req.body.status} })
+              { $set : {status : req.params.status} })
               .then(result => {
-                res.status(200).json({
-                  message : `Task ${req.params.idTask} updated` ,
+                rs.status(200).json({
+                  message : `Task ${req.params.idTask} Completed` ,
                   data : result
                 })
               })
               .catch(err => {
-		console.log(err)
                 res.status(500).json({
                   message : err
                 })
@@ -130,10 +127,10 @@ module.exports = {
             }
         })
         .catch(err => {
-	   console.log(err)
             res.json({
               message : err
             })
         })
     }
+    
 }
