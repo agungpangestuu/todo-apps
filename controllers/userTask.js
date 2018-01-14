@@ -10,8 +10,8 @@ module.exports = {
             task : req.body.task,
             description : req.body.description,
             createdAt : new Date(),
-            updateAt : new Date(),
-            userId : req.isLogin.id
+            dueDate : req.body.dueDate,
+            userId : ObjectId(req.isLogin.id)
         })
         .save((err, response) => {
             if(!err){

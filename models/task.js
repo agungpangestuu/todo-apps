@@ -7,9 +7,9 @@ const Tasks = new Schema({
     description : {type : String, default : '' },
     status : {type : Boolean, default : false },
     createdAt : {type : Date },
-    UpdatedAt : {type : Date },
-    userId : { type : ObjectId, ref : 'userTask'}
+    dueDate : {type : Date, default: Date.now },
+    userId : { type: Schema.Types.ObjectId, ref : 'User'}
 });
 
-const Task = mongoose.model("Task",Tasks);
+const Task = mongoose.model("Task", Tasks);
 module.exports = Task
